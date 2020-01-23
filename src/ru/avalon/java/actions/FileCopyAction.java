@@ -1,10 +1,30 @@
 package ru.avalon.java.actions;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
 /**
  * Действие, которое копирует файлы в пределах дискового
  * пространства.
  */
 public class FileCopyAction implements Action {
+
+    private Path pathFrom;
+    private Path pathTo;
+
+    public FileCopyAction() { }
+
+    public void setPathFrom(Path pathFrom) {
+        this.pathFrom = pathFrom;
+    }
+
+    public void setPathTo(Path pathTo) {
+        this.pathTo = pathTo;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -13,7 +33,9 @@ public class FileCopyAction implements Action {
         /*
          * TODO №2 Реализуйте метод run класса FileCopyAction
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        try {
+            Files.copy(pathFrom, pathTo, REPLACE_EXISTING);
+        } catch (IOException ex) {/*ex.printStackTrace();*/}
     }
 
     /**
@@ -24,6 +46,6 @@ public class FileCopyAction implements Action {
         /*
          * TODO №3 Реализуйте метод close класса FileCopyAction
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        threadPool.shutdownNow();
     }
 }
